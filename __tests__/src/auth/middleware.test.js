@@ -41,6 +41,7 @@ describe('Auth Middleware', () => {
       return middleware(req, res, next)
         .then(() => {
           expect(next).toHaveBeenCalledWith(errorObject);
+ 
         });
 
     }); // it()
@@ -60,6 +61,9 @@ describe('Auth Middleware', () => {
         .then( () => {
           cachedToken = req.token;
           expect(next).toHaveBeenCalledWith();
+          expect(req).toHaveProperty('user');
+          expect(req.user).toHaveProperty('username', 'admin');
+          expect(req).toHaveProperty('token');
         });
 
     }); // it()

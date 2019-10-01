@@ -22,13 +22,12 @@ describe('Auth Router', () => {
     let encodedToken;
     let id;
     
-    it.skip('can create one', () => {
+    it('can create one', () => {
       return mockRequest
         .post('/signup')
         .send(users[userType])
         .expect(200)
         .then(results => {
-          console.log(results.text);
           var token = jwt.verify(results.text, process.env.SECRET || 'changeit');
           id = token.id;
           encodedToken = results.text;
@@ -37,8 +36,9 @@ describe('Auth Router', () => {
         });
     });
 
-    it.skip('can signin with basic', () => {
-      return mockRequest.post('/signin')
+    it('can signin with basic', () => {
+      return mockRequest
+        .post('/signin')
         .auth(users[userType].username, users[userType].password)
         .expect(200)
         .then(results => {

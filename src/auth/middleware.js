@@ -31,16 +31,18 @@ module.exports = (req, res, next) => {
       .then( user => _authenticate(user) );
   }
 
-  function _authenticate(user) {
+  async function _authenticate(user) {
     if ( user ) {
+      req.token = user.generateToken();
+      req.user = user;
       next();
     }
     else {
-      _authError();
+      await _authError();
     }
   }
 
-  function _authError() {
+  async function _authError() {
     next({status: 401, statusMessage: 'Unauthorized', message: 'Invalid User ID/Password'});
   }
 

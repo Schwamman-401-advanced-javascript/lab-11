@@ -12,9 +12,6 @@ const notFound = require( './middleware/404.js' );
 // Prepare the express app
 const app = express();
 
-const router = require('./auth/router');
-
-
 // App Level MW
 app.use(cors());
 app.use(morgan('dev'));
@@ -22,7 +19,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-
+const router = require('./auth/router');
 app.use('/', router);
 
 // Catchalls
